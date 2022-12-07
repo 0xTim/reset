@@ -69,6 +69,7 @@ extension PasswordResettable where
     ) -> Future<Self?> {
         let username = payload[keyPath: RequestReset.readableUsernameKey]
         print("Looking for user \(username)")
+        fflush(stdout)
         return query(on: connection).filter(Self.usernameKey == username).first()
     }
 }
