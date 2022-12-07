@@ -26,11 +26,11 @@ open class ResetController
         logger.debug("Reset password request")
         return U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { 
-                let logger = try req.make(Logger.self)
                 logger.debug("Getting user")
                 return try U.find(by: $0, on: req) 
             }
             .flatTry { user in
+                logger.debug("Getting user query returned")
                 guard let user = user else {
                     // ignore case where user could not be found to prevent malicious attackers from
                     // finding out which accounts are available on the system
