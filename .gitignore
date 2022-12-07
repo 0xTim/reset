@@ -6,3 +6,5 @@ Packages
 DerivedData/
 Package.resolved
 .swiftpm
+.npmignore
+.vscode/
