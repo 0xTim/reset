@@ -45,14 +45,19 @@ public extension ResetConfig {
         context: T.Context,
         on req: Request
     ) throws -> Future<Void> {
+        print("In reset password config 1")
         let expirationPeriod = T.expirationPeriod(for: context)
         let expirableSigner = ExpireableJWTSigner(
             expirationPeriod: expirationPeriod,
             signer: signer
         )
+        print("About to sign token")
+        fflush(stdout)
         return try object
             .signToken(using: expirableSigner, on: req)
             .flatMap(to: Void.self) { token in
+                print("Got token, will send")
+                fflush(stdout)
                 let url = self.baseURL
                     .appending("\(self.endpoints.renderResetPassword ?? "")/\(token)")
                 return try object.sendPasswordReset(

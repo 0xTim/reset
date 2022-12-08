@@ -43,7 +43,8 @@ open class ResetController
                 )
             }
             .flatMap(to: Response.self) { _ in
-                try config.responses.resetPasswordUserNotified(req)
+                logger.debug("About to return the reset password data")
+                return try config.responses.resetPasswordUserNotified(req)
             }
     }
 
